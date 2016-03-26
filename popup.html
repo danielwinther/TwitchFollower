@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/twitch.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="css/stylesheet.css" />
+    <title>Twitch following | Who is streaming?</title>
+</head>
+<body>
+    <div class="container">
+        <h3>Twitch following | Who is streaming?</h3>
+        <div class="row">
+            <div class="form-group col-xs-12">
+                <input type="text" autofocus placeholder="Twitch username" id="username" class="form-control">
+            </div>
+        </div>
+        <div class="clearfix">
+            <button type="submit" id="login" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
+        </div>
+        <hr />
+        <div class="streamers" id="online">
+            <h4>Online streamers</h4>
+        </div>
+        <hr/>
+        <div class="streamers" id="offline">
+            <h4>Offline streamers</h4>
+        </div>
+    </div>
+</body>
+</html>

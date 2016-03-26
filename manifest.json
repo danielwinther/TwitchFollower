@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "Twitch following | Who is streaming?",
+  "version": "1.0",
+  "description": "Application that lists all of you favourite streamers you are following.",
+  "browser_action": {
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "scripts": ["js/jquery.min.js", "js/background.js"]
+  },
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}
