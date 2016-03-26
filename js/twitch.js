@@ -33,6 +33,7 @@
                         if (data.stream != null) {
                             $("#online").append("<p><a class='text-success' target='_blank' href='" + value.channel.url + "'>" + value.channel.display_name + "</a></p>").hide().fadeIn(fadeInDuration);
                             if (data.stream != null) {
+
                             onlineCounter++;
                             if (onlineCounter > 999) {
                                 chrome.browserAction.setBadgeText ( { text: "999+"});
@@ -43,6 +44,8 @@
                         }
                         }
                         else {
+                            chrome.browserAction.setBadgeText ( { text: onlineCounter.toString()});
+                        	console.log(onlineCounter.toString());
                             $("#offline").append("<p><a class='text-danger' target='_blank' href='" + value.channel.url + "'>" + value.channel.display_name + "</a></p>").hide().fadeIn(fadeInDuration);
                         }
                       }
