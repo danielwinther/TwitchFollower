@@ -6,6 +6,9 @@
   "browser_action": {
     "default_popup": "popup.html"
   },
+  "background": {
+    "scripts": ["js/jquery.min.js", "js/background.js"]
+  },
   "permissions": [
     "activeTab",
     "https://ajax.googleapis.com/"
