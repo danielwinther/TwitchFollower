@@ -15,17 +15,17 @@
             </div>
         </div>
         <div class="clearfix">
-            <button ng-click="getTwitch()" type="submit" id="login" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
+            <button ng-click="getTwitch()" type="submit" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
         </div>
         <hr />
-        <h4>Online</h4>
-        <div ng-repeat="item in onlineStreamers" class="streamers" id="online">
-            <a ng-href="{{item.channel.url}}" target="_blank"><p ng-bind="item.channel.display_name" class="text-success"></p></a>
+        <h4>Online ({{onlineStreamers.length ? onlineStreamers.length : 0}})</h4>
+        <div ng-repeat="streamer in onlineStreamers">
+            <a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-success"></p></a>
         </div>
-        <hr/>
-        <h4>Offline</h4>
-        <div ng-repeat="item in offlineStreamers" class="streamers" id="offline">
-            <a ng-href="{{item.channel.url}}" target="_blank"><p ng-bind="item.channel.display_name" class="text-danger"></p></a>
+        <hr />
+        <h4>Online ({{offlineStreamers.length ? offlineStreamers.length : 0}})</h4>
+        <div ng-repeat="streamer in offlineStreamers">
+            <a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-danger"></p></a>
         </div>
     </div>
     <script src="js/jquery.min.js"></script>
