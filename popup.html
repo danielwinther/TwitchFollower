@@ -1,33 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
 <head>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/twitch.js"></script>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
     <link rel="stylesheet" href="css/stylesheet.css" />
     <title>Twitch following | Who is streaming?</title>
 </head>
 <body>
-    <div class="container">
+    <div ng-controller="ctrl" ng-init="getTwitch()" class="container">
         <h3>Twitch following | Who is streaming?</h3>
         <div class="row">
             <div class="form-group col-xs-12">
-                <input type="text" autofocus placeholder="Twitch username" id="username" class="form-control">
+                <input ng-model="username" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
             </div>
         </div>
         <div class="clearfix">
-            <button type="submit" id="login" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
+            <button ng-click="getTwitch()" type="submit" id="login" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
         </div>
         <hr />
-        <div class="streamers" id="online">
-            <h4>Online streamers</h4>
+        <h4>Online</h4>
+        <div ng-repeat="item in onlineStreamers" class="streamers" id="online">
+            <a ng-href="{{item.channel.url}}" target="_blank"><p ng-bind="item.channel.display_name" class="text-success"></p></a>
         </div>
         <hr/>
-        <div class="streamers" id="offline">
-            <h4>Offline streamers</h4>
+        <h4>Offline</h4>
+        <div ng-repeat="item in offlineStreamers" class="streamers" id="offline">
+            <a ng-href="{{item.channel.url}}" target="_blank"><p ng-bind="item.channel.display_name" class="text-danger"></p></a>
         </div>
     </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/ngStorage.min.js"></script>
+    <script src="js/twitch.js"></script>
 </body>
 </html>

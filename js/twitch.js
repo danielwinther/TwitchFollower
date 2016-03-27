@@ -1,59 +1,30 @@
-    $( document ).ready(function() {
-    var reloadStreamersDuration = 600000
-    var fadeInDuration = "normal";
+var app = angular.module('app', ['ngStorage']);
+app.controller('ctrl', function($scope, $localStorage, $interval, $http){
+    $scope.username = $localStorage.username;
 
-    if (localStorage.getItem("username") != null) {
-        showStreamers(localStorage["username"]);
+    $scope.getTwitch = function() {
+        $localStorage.username = $scope.username;
+        var online = new Array();
+        var offline = new Array();
 
-        /*setInterval(function () {
-            $(".streamers").empty();
-            showStreamers(localStorage["username"]);
-        }, reloadStreamersDuration);*/
-    }
-
-    var username = $("#username");
-    username.val(localStorage.getItem("username"));
-
-    $("#login").click(function () {
-        localStorage.setItem("username", username.val());
-        location.reload();
-    });
-
-    function showStreamers(username) {
-        onlineCounter = 0;
-        $.ajax({
-        url: "https://api.twitch.tv/kraken/users/" + username + "/follows/channels",
-        dataType: 'json',
-          success: function(data) {
-            $.each(data.follows, function (key, value) {
-                $.ajax({
-                    url: 'https://api.twitch.tv/kraken/streams/' + value.channel.name,
-                    dataType: 'json',
-                    success: function(data) {
-                        if (data.stream != null) {
-                            $("#online").append("<p><a class='text-success' target='_blank' href='" + value.channel.url + "'>" + value.channel.display_name + "</a></p>").hide().fadeIn(fadeInDuration);
-                            if (data.stream != null) {
-                            onlineCounter++;
-                            if (onlineCounter > 999) {
-                                chrome.browserAction.setBadgeText ( { text: "999+"});
-                            }
-                            else {
-                                chrome.browserAction.setBadgeText ( { text: onlineCounter.toString()});
-                            }
-                        }
-                        }
-                        else {
-                            chrome.browserAction.setBadgeText ( { text: onlineCounter.toString()});
-                            $("#offline").append("<p><a class='text-danger' target='_blank' href='" + value.channel.url + "'>" + value.channel.display_name + "</a></p>").hide().fadeIn(fadeInDuration);
-                        }
-                      }
-                    });
+        $http.get('https://api.twitch.tv/kraken/users/' + ($scope.username ? $scope.username : "twitch")  + '/follows/channels')
+        .then(function(response) {
+            $scope.data = response.data.follows
+            angular.forEach($scope.data, function(value, key){
+                $http.get('https://api.twitch.tv/kraken/streams/' + value.channel.display_name)
+                .then(function(response) {
+                    if (response.data.stream != null) {
+                        online.push(value);
+                        $scope.onlineStreamers = online;
+                        chrome.browserAction.setBadgeText ( { text: online.length.toString()});
+                    }
+                    else {
+                        offline.push(value);
+                        $scope.offlineStreamers = offline;
+                        console.log($scope.offlineStreamers);
+                    }
                 });
-            },
-            error: function (error) {
-                localStorage.removeItem("username");
-                location.reload();
-            }
+            });
         });
-    }
+    };
 });
