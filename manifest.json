@@ -4,6 +4,7 @@
   "version": "1.1",
   "short_name": "Twitch following",
   "description": "Extension that lists all of you favourite streamers you are currently following.",
+  "content_security_policy": "script-src 'self' https://api.twitch.tv/kraken/; object-src 'self'",
   "browser_action": {
     "default_popup": "popup.html"
     },

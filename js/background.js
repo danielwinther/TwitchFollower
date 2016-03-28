@@ -2,13 +2,14 @@ var twitch = angular.module('twitch', ['ngStorage']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
-    var minutes = 15;
+    var minutes = 0.5;
 
     $scope.runBackground = function() {
         getTwitch();
         $interval(function(){
             getTwitch();
-        }, minutes * 1000);
+        }, minutes * 60000);
+
     };
     function getTwitch() {
         chrome.runtime.onMessage.addListener(
@@ -16,7 +17,7 @@ twitch.controller('TwitchController', function($scope, $localStorage, $interval,
                 sendResponse({
                     msg: request.greeting
                 });
-                chrome.browserAction.setBadgeText ({ text: request.greeting.toString()});
+                chrome.browserAction.setBadgeText ({ text: request.greeting});
             });
 
         chrome.runtime.onMessage.addListener(
@@ -24,7 +25,7 @@ twitch.controller('TwitchController', function($scope, $localStorage, $interval,
                 sendResponse({
                     msg1: request.greeting1
                 });
-                chrome.browserAction.setBadgeText ({ text: request.greeting1.toString()});
+                chrome.browserAction.setBadgeText ({ text: request.greeting1});
             });
 
         var online = new Array();

@@ -3,15 +3,15 @@ twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
     $scope.username = $localStorage.username;
+    getTwitch();
+    $scope.onChange = function() {
+        getTwitch();
+    };
 
-    $scope.getTwitch = function() {
+    function getTwitch() {
         chrome.runtime.sendMessage({
             greeting: "0"
-        },
-        function(response) {
-            console.log(response.msg);
         });
-
         $localStorage.username = $scope.username;
         var online = new Array();
         var offline = new Array();
@@ -28,9 +28,6 @@ twitch.controller('TwitchController', function($scope, $localStorage, $interval,
 
                         chrome.runtime.sendMessage({
                             greeting1: online.length.toString()
-                        },
-                        function(response) {
-                            console.log(response.msg1);
                         });
                     }
                     else {
@@ -41,5 +38,5 @@ twitch.controller('TwitchController', function($scope, $localStorage, $interval,
                 });
             });
         });
-    };
+    }
 });

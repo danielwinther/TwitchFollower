@@ -11,13 +11,9 @@
         <h3>Twitch following | Who is streaming?</h3>
         <div class="row">
             <div class="form-group col-xs-12">
-                <input ng-model="username" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
+                <input ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}"  type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
             </div>
         </div>
-        <div class="clearfix">
-            <button ng-click="getTwitch()" type="submit" class="col-xs-12 btn btn-primary pull-right">Show streamers</button>
-        </div>
-        <hr />
         <h4>Online ({{onlineStreamers.length ? onlineStreamers.length : 0}})</h4>
         <div ng-repeat="streamer in onlineStreamers">
             <a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-success"></p></a>
@@ -30,6 +26,7 @@
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/twitch.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/ngStorage.min.js"></script>
     <script src="js/popup.js"></script>
