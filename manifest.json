@@ -7,7 +7,8 @@
     "default_popup": "popup.html"
     },
     "background": {
-      "page": "background.html"
+      "page": "background.html",
+      "persistent": false
       },
       "permissions": [
       "activeTab",

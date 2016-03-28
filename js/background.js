@@ -3,7 +3,23 @@ app.constant('URL', 'https://api.twitch.tv/kraken/');
 app.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 app.controller('ctrl', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
     $scope.runBackground = function() {
-        chrome.browserAction.setBadgeText ({ text: '0'});
+
+        chrome.runtime.onMessage.addListener(
+            function(request, sender, sendResponse) {
+                sendResponse({
+                    msg: request.greeting
+                });
+                chrome.browserAction.setBadgeText ({ text: request.greeting.toString()});
+            });
+
+        chrome.runtime.onMessage.addListener(
+            function(request, sender, sendResponse) {
+                sendResponse({
+                    msg1: request.greeting1
+                });
+                chrome.browserAction.setBadgeText ({ text: request.greeting1.toString()});
+            });
+
         getTwitch();
         $interval(function(){
             getTwitch();
