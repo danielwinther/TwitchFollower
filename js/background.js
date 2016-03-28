@@ -2,9 +2,12 @@ var twitch = angular.module('twitch', ['ngStorage']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
+
     var minutes = 0.5;
     $interval(function(){
         $scope.getTwitch();
+        i++;
+        console.log(i.toString());
     }, minutes * 60000);
 
     $scope.getTwitch = function() {
