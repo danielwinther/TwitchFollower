@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Twitch following | Who is streaming?",
-  "version": "1.0",
-  "description": "Application that lists all of you favourite streamers you are following.",
+  "version": "1.1",
+  "short_name": "Twitch following",
+  "description": "Extension that lists all of you favourite streamers you are currently following.",
   "browser_action": {
     "default_popup": "popup.html"
     },
