@@ -6,7 +6,7 @@ app.controller('ctrl', function($scope, $localStorage, $interval, $http, URL, PA
 
     $scope.getTwitch = function() {
         try {
-            chrome.browserAction.setBadgeText ( { text: '0'});
+            chrome.browserAction.setBadgeText ({ text: '0'});
         }
         catch(err) {}
 
@@ -23,7 +23,7 @@ app.controller('ctrl', function($scope, $localStorage, $interval, $http, URL, PA
                         online.push(value);
                         $scope.onlineStreamers = online;
                         $scope.offlineStreamers = offline;
-                        chrome.browserAction.setBadgeText ( { text: online.length.toString()});
+                        chrome.browserAction.setBadgeText ({ text: online.length.toString()});
                     }
                     else {
                         offline.push(value);
