@@ -3,15 +3,11 @@ twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
     var minutes = 0.5;
+    $interval(function(){
+        $scope.getTwitch();
+    }, minutes * 60000);
 
-    $scope.runBackground = function() {
-        getTwitch();
-        $interval(function(){
-            getTwitch();
-        }, minutes * 60000);
-
-    };
-    function getTwitch() {
+    $scope.getTwitch = function() {
         chrome.runtime.onMessage.addListener(
             function(request, sender, sendResponse) {
                 sendResponse({

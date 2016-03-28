@@ -3,12 +3,11 @@ twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
 twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
     $scope.username = $localStorage.username;
-    getTwitch();
     $scope.onChange = function() {
-        getTwitch();
+        $scope.getTwitch();
     };
 
-    function getTwitch() {
+    $scope.getTwitch = function() {
         chrome.runtime.sendMessage({
             greeting: "0"
         });
