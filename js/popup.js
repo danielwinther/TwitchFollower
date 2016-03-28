@@ -1,7 +1,7 @@
-var app = angular.module('app', ['ngStorage']);
-app.constant('URL', 'https://api.twitch.tv/kraken/');
-app.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
-app.controller('ctrl', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
+var twitch = angular.module('twitch', ['ngStorage']);
+twitch.constant('URL', 'https://api.twitch.tv/kraken/');
+twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
+twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
     $scope.username = $localStorage.username;
 
     $scope.getTwitch = function() {
@@ -30,7 +30,7 @@ app.controller('ctrl', function($scope, $localStorage, $interval, $http, URL, PA
                             greeting1: online.length.toString()
                         },
                         function(response) {
-                            console.log(response.msg);
+                            console.log(response.msg1);
                         });
                     }
                     else {
