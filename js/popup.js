@@ -1,6 +1,6 @@
 var twitch = angular.module('twitch', ['ngAnimate']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
-twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
+twitch.constant('PARAMETERS', '?direction=asc&limit=1000&sortby=display_name');
 twitch.controller('TwitchController', function($scope, $interval, $http, URL, PARAMETERS){
     $scope.title = 'Twitch following | Who is streaming?';
     $scope.onChange = function() {
