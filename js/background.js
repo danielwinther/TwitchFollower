@@ -1,8 +1,8 @@
-var twitch = angular.module('twitch', ['ngStorage']);
+var twitch = angular.module('twitch', []);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.constant('PARAMETERS', '?direction=DESC&limit=1000sortby=display_name');
-twitch.controller('TwitchController', function($scope, $localStorage, $interval, $http, URL, PARAMETERS){
-
+twitch.controller('TwitchController', function($scope, $interval, $http, URL, PARAMETERS){
+    $scope.title = 'Twitch following | Who is streaming?';
     var minutes = 0.5;
     $interval(function(){
         $scope.getTwitch();
@@ -30,16 +30,18 @@ twitch.controller('TwitchController', function($scope, $localStorage, $interval,
         var online = new Array();
         chrome.browserAction.setBadgeText ({ text: '0'});
 
-        $http.get(URL+ 'users/' + ($localStorage.username ? $localStorage.username: "twitch")  + '/follows/channels' + PARAMETERS)
-        .then(function(response) {
-            $scope.data = response.data.follows
-            angular.forEach($scope.data, function(value, key){
-                $http.get(URL + 'streams/' + value.channel.name)
-                .then(function(response) {
-                    if (response.data.stream != null) {
-                        online.push(value);
-                        chrome.browserAction.setBadgeText ({ text: online.length.toString()});
-                    }
+        chrome.storage.sync.get('username', function (result) {
+            $http.get(URL+ 'users/' + (result.username ? result.username : "twitch")  + '/follows/channels' + PARAMETERS)
+            .then(function(response) {
+                $scope.data = response.data.follows
+                angular.forEach($scope.data, function(value, key){
+                    $http.get(URL + 'streams/' + value.channel.name)
+                    .then(function(response) {
+                        if (response.data.stream != null) {
+                            online.push(value);
+                            chrome.browserAction.setBadgeText ({ text: online.length.toString()});
+                        }
+                    });
                 });
             });
         });

@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html ng-app="twitch">
+<html ng-app="twitch" ng-controller="TwitchController">
 <head>
-    <title>Twitch following | Who is streaming?</title>
+	<title ng-bind="title"></title>
 </head>
-<body ng-controller="TwitchController" ng-init="getTwitch()">
-    <script src="js/angular.min.js"></script>
-    <script src="js/ngStorage.min.js"></script>
-    <script src="js/twitch.min.js"></script>
-    <script src="js/background.js"></script>
+<body ng-init="getTwitch()">
+	<script src="js/angular.min.js"></script>
+	<script src="js/background.js"></script>
 </body>
 </html>

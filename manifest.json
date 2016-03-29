@@ -13,6 +13,7 @@
       },
       "permissions": [
       "activeTab",
+      "storage",
       "background",
       "https://ajax.googleapis.com/"
       ]

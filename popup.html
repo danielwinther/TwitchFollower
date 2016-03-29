@@ -1,34 +1,33 @@
 <!DOCTYPE html>
-<html ng-app="twitch">
+<html ng-app="twitch" ng-controller="TwitchController">
 <head>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="css/stylesheet.css" />
-    <title>Twitch following | Who is streaming?</title>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="css/stylesheet.css" />
+	<title ng-bind="title"></title>
 </head>
 <body>
-    <div ng-controller="TwitchController" ng-init="getTwitch()" class="container">
-        <h3>Twitch following | Who is streaming?</h3>
-        <div class="row">
-            <div class="form-group col-xs-12">
-                <input ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}"  type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
-            </div>
-        </div>
-        <h4>Online ({{onlineStreamers.length ? onlineStreamers.length : 0}})</h4>
-        <div ng-repeat="streamer in onlineStreamers">
-            <a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-success"></p></a>
-        </div>
-        <hr />
-        <h4>Online ({{offlineStreamers.length ? offlineStreamers.length : 0}})</h4>
-        <div ng-repeat="streamer in offlineStreamers">
-            <a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-danger"></p></a>
-        </div>
-    </div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/twitch.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/ngStorage.min.js"></script>
-    <script src="js/popup.js"></script>
+	<div ng-init="getTwitch()" class="container">
+		<h3 ng-bind="title"></h3>
+		<div class="row">
+			<div class="form-group col-xs-12">
+				<input ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}"  type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
+			</div>
+		</div>
+		<h4 ng-bind="'Online (' + (onlineStreamers.length ? onlineStreamers.length : 0) + ')'"></h4>
+		<div class="animate-repeat" ng-repeat="streamer in onlineStreamers">
+			<a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-success"></p></a>
+		</div>
+		<hr />
+		<h4 ng-bind="'Offline (' + (offlineStreamers.length ? offlineStreamers.length : 0) + ')'"></h4>
+		<div class="animate-repeat" ng-repeat="streamer in offlineStreamers">
+			<a ng-href="{{streamer.channel.url}}" target="_blank"><p ng-bind="streamer.channel.display_name" class="text-danger"></p></a>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-animate.js"></script>
+	<script src="js/popup.js"></script>
 </body>
 </html>
