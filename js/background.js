@@ -2,7 +2,7 @@ var twitch = angular.module('twitch', []);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.controller('TwitchController', function($scope, $interval, $http, URL){
     $scope.title = 'Twitch following | Who is streaming?';
-    var minutes = 0.5;
+    var minutes = 1;
     $interval(function(){
         $scope.getTwitch();
         i++;
@@ -30,8 +30,9 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL){
         chrome.browserAction.setBadgeText ({ text: '0'});
 
         chrome.storage.sync.get('username', function (result) {
-            $http.get(URL+ 'users/' + (result.username ? result.username : "twitch")  + '/follows/channels')
+            $http.get(URL+ 'users/' + (result.username ? result.username : "twitch")  + '/follows/channels?limit=1000')
             .then(function(response) {
+                console.log(response);
                 $scope.data = response.data.follows
                 angular.forEach($scope.data, function(value, key){
                     $http.get(URL + 'streams/' + value.channel.name)

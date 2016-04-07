@@ -1,5 +1,7 @@
 body {
 	min-width:300px;
+	width:350px;
+	word-wrap: break-word;
 }
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,

@@ -1,7 +1,6 @@
 var twitch = angular.module('twitch', ['ngAnimate']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
-twitch.constant('PARAMETERS', '?direction=asc&limit=1000&sortby=display_name');
-twitch.controller('TwitchController', function($scope, $interval, $http, URL, PARAMETERS){
+twitch.controller('TwitchController', function($scope, $interval, $http, URL){
     $scope.title = 'Twitch following | Who is streaming?';
     $scope.onChange = function() {
         chrome.storage.sync.set({'username': $scope.username}, function() {
@@ -18,7 +17,7 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL, PA
             });
             var online = new Array();
             var offline = new Array();
-            $http.get(URL + 'users/' + ($scope.username ? $scope.username : 'twitch') + '/follows/channels' + PARAMETERS)
+            $http.get(URL + 'users/' + ($scope.username ? $scope.username : 'twitch') + '/follows/channels?direction=asc&limit=1000&sortby=display_name')
             .then(function(response) {
                 $scope.data = response.data.follows
                 angular.forEach($scope.data, function(value, key){
