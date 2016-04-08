@@ -1,8 +1,12 @@
 body {
-	min-width:300px;
-	width:350px;
+	width:300px;
 	word-wrap: break-word;
 }
+
+.animate-repeat img {
+	height: 30px;
+}
+
 .animate-repeat.ng-move,
 .animate-repeat.ng-enter,
 .animate-repeat.ng-leave {

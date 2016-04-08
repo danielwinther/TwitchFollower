@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html ng-app="twitch" ng-controller="OptionsController">
+<head>
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+	<link rel="stylesheet" href="css/options.css" />
+	<title ng-bind="'Options | ' + manifest.name"></title>
+</head>
+<body>
+	<div ng-init="options()" class="container">
+		<ul class="row nav nav-tabs">
+			<h1 ng-bind="'Options | ' + manifest.name"></h1>
+			<li class="active"><a data-toggle="tab" href="#general">General</a></li>
+			<li><a data-toggle="tab" href="#tweaking">Tweaking</a></li>
+		</ul>
+		<div class="row tab-content">
+			<div id="general" class="tab-pane fade in active col-md-12">
+				<h2>General<small> - General Twitch options</small></h2>
+				<p>Type your Twitch username in the input field below in order to fetch a list of streamers you're currently following (while the list itself will be shown through the extension by clicking the icon in the right hand corner of your browser).</p>
+				<div class="form-group">
+					<input style="background: url({{user.logo ? user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';}}) no-repeat right / 35px content-box; padding:5px;" ng-model="username" autofocus ng-change="onChange()" ng-model-options="{debounce: 750}" type="text" placeholder="Twitch username (default: twitch)" class="form-control input-lg">
+				</div>
+			</div>
+			<div id="tweaking" class="tab-pane fade col-md-12">
+				<h2>Tweaking<small> - Tweak the values to your own likings (or don't)</small></h2>
+				<div>
+					<div class="form-group col-md-6">
+						<small>Set the refresh rate of the counter in the right hand corner of the browser (in minutes). The changes won't apply untill you <strong>restart</strong> your browser after setting this value!</small>
+						<div class="input-group">
+							<input ng-model="counter" ng-change="onChange()" ng-model-options="{debounce: 750}" type="text" placeholder="Refresh counter duration (in minutes)" class="form-control">
+							<span class="input-group-addon">minute(s)</span>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<small>Set the max limit of users fetched using the <a href="https://github.com/justintv/Twitch-API" target="_blank">Twitch API</a>. Please be cautious and don't call unnecessarily to the API - we don't want complaints from Twitch, thanks.</small>
+						<div class="input-group">
+							<input ng-model="limit" ng-change="onChange()" ng-model-options="{debounce: 750}" type="text" placeholder="Max limit of users" class="form-control">
+							<span class="input-group-addon">user(s) fetched</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<h3 class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></h3>
+		</div>
+		<div class="row">
+			<hr/>
+			<p ng-bind="'Version ' + manifest.version" class="text-muted text-right"></p>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-animate.min.js"></script>
+	<script src="js/options.js"></script>
+</body>
+</html>

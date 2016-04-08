@@ -3,21 +3,21 @@
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
-	<link rel="stylesheet" href="css/stylesheet.css" />
-	<title ng-bind="title"></title>
+	<link rel="stylesheet" href="css/styles.css" />
+	<title ng-bind="manifest.name"></title>
 </head>
 <body>
 	<div ng-init="getTwitch()" class="container">
-		<h3 ng-bind="title"></h3>
+		<h3 ng-bind="manifest.name"></h3>
 		<div class="row">
 			<div class="form-group col-xs-12">
-				<input ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}"  type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
+				<input style="background: url({{user.logo ? user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';}}) no-repeat right / 20px content-box; padding:5px;" ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
 			</div>
 		</div>
 		<h4 ng-bind="'Online (' + (onlineStreamers.length ? onlineStreamers.length : 0) + ')'"></h4>
 		<div class="animate-repeat" ng-repeat="streamer in onlineStreamers">
 			<p>
-				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" height="30"class="img-rounded"/>
+				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
 				<a ng-href="{{streamer.channel.url}}" title="{{streamer.channel.status + ' | ' + streamer.channel.game}}" target="_blank">
 					<span ng-bind="streamer.channel.display_name" class="text-success"></span>
 				</a>
@@ -27,7 +27,7 @@
 		<h4 ng-bind="'Offline (' + (offlineStreamers.length ? offlineStreamers.length : 0) + ')'"></h4>
 		<div class="animate-repeat" ng-repeat="streamer in offlineStreamers">
 			<p>
-				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" height="30"class="img-rounded"/>
+				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
 				<a ng-href="{{streamer.channel.url}}" target="_blank">
 					<span ng-bind="streamer.channel.display_name" class="text-danger"></span>
 				</a>
