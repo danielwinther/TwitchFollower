@@ -7,7 +7,7 @@
 	<title data-ng-bind="manifest.name"></title>
 </head>
 <body>
-	<main data-ng-init="getTwitch()" class="container">
+	<main data-ng-init="getStreamers()" class="container">
 		<section class="row form-group col-md-12">
 			<h3 data-ng-bind="manifest.name"></h3>
 			<input data-ng-style="background" data-ng-model="username" data-ng-change="onChange()" data-ng-model-options="{debounce: 750}" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">

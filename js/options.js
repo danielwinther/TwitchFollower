@@ -38,7 +38,7 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
 
     $scope.onChange = function() {
         chrome.storage.sync.set({'username': $scope.username});
-        chrome.storage.sync.set({'counter': $scope.counter});
+        chrome.storage.sync.set({'counter': parseFloat($scope.counter)});
         chrome.storage.sync.set({'limit': $scope.limit});
         chrome.storage.sync.set({'animation': $scope.animation});
         angular.element('.glyphicon-refresh-animate').fadeIn('fast');

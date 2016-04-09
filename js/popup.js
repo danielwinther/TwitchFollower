@@ -2,37 +2,20 @@ var twitch = angular.module('twitch', ['ngAnimate']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.controller('TwitchController', function($scope, $interval, $http, URL){
     $scope.manifest = chrome.runtime.getManifest();
-
     $scope.onChange = function() {
         chrome.storage.sync.set({'username': $scope.username}, function() {
-            $scope.getTwitch();
+            $scope.getStreamers();
         });
     };
 
-    $scope.getTwitch = function() {
+    $scope.getStreamers = function() {
+        chrome.storage.sync.get('animation', function (result) {
+            $scope.animation = {
+                'transition': 'all ease ' + result.animation + 's'
+            };
+        });
         chrome.storage.sync.get('username', function (result) {
             $scope.username = result.username;
-            chrome.storage.sync.get('counter', function (result) {
-                if (result.counter == null) {
-                    chrome.storage.sync.set({'counter': 1});
-                }
-            });
-            chrome.storage.sync.get('limit', function (result) {
-                if (result.limit == null) {
-                    chrome.storage.sync.set({'limit': 1000});
-                }
-            });
-            chrome.storage.sync.get('animation', function (result) {
-                if (result.animation == null) {
-                    chrome.storage.sync.set({'animation': 0.5});
-                }
-                else {
-                    $scope.animation = {
-                        'transition': 'all ease ' + result.animation + 's'
-                    };
-                }
-            });
-
             chrome.runtime.sendMessage({
                 greeting: '0'
             });
