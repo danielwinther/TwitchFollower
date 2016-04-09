@@ -1,19 +1,9 @@
 const URL = 'https://api.twitch.tv/kraken/';
 
 setStorageVariables();
+getStreamers();
+setAndListenOnAlarm();
 
-chrome.storage.sync.get('counter', function (result) {
-    getStreamers();
-    chrome.alarms.create('alarm', {
-        delayInMinutes : result.counter, 
-        periodInMinutes: result.counter
-    });
-    chrome.alarms.onAlarm.addListener(function(alarm) {
-        if (alarm.name == 'alarm') {
-            getStreamers();
-        }
-    });
-});
 function setStorageVariables() {
     chrome.storage.sync.get('counter', function (result) {
         if (result.counter == null) {
@@ -32,6 +22,21 @@ function setStorageVariables() {
     });
 }
 
+function setAndListenOnAlarm() {
+    chrome.storage.sync.get('counter', function (result) {
+        chrome.alarms.create('alarm', {
+            delayInMinutes : result.counter, 
+            periodInMinutes: result.counter
+        });
+        chrome.alarms.onAlarm.addListener(function(alarm) {
+            if (alarm.name == 'alarm') {
+                getStreamers();
+            }
+        });
+    });
+}
+
+
 function getStreamers() {
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
@@ -48,13 +53,13 @@ function getStreamers() {
             });
             chrome.browserAction.setBadgeText ({ text: request.greeting1});
         });
-    var online = new Array();
     chrome.browserAction.setBadgeText ({ text: '0'});
 
     chrome.storage.sync.get('username', function (result) {
         chrome.storage.sync.get('limit', function (result1) {
+            var online = 0;
             $.ajax({
-                url: URL + 'users/' + (result.username ? result.username : "twitch")  + '/follows/channels?limit=' + result1.limit,
+                url: URL + 'users/' + (result.username ? result.username : 'twitch')  + '/follows/channels?limit=' + result1.limit,
                 dataType: 'json',
                 success: function(data) {
                     $.each(data.follows, function (key, value) {
@@ -63,8 +68,8 @@ function getStreamers() {
                             dataType: 'json',
                             success: function(response) {
                                 if (response.stream != null) {
-                                    online.push(value);
-                                    chrome.browserAction.setBadgeText ({ text: online.length.toString()});
+                                    online++;
+                                    chrome.browserAction.setBadgeText ({ text: online.toString()});
                                 }
                             }
                         });

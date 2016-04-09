@@ -1,6 +1,6 @@
 var twitch = angular.module('twitch', ['ngAnimate']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
-twitch.controller('TwitchController', function($scope, $interval, $http, URL){
+twitch.controller('TwitchController', function($scope, $interval, $http, URL) {
     $scope.manifest = chrome.runtime.getManifest();
     $scope.onChange = function() {
         chrome.storage.sync.set({'username': $scope.username}, function() {
@@ -23,11 +23,22 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL){
             $http.get(URL + 'users/' + $scope.username)
             .then(function(response) {
                 $scope.user = response.data;
-                $scope.logo = $scope.user.logo ? $scope.user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';
-                $scope.background = {
-                    'background': 'url("' + $scope.logo + '") no-repeat right / 20px content-box',
-                    'padding': '5px 5px 5px 12px'
-                };
+                $scope.logo = $scope.user.logo ? $scope.user.logo : chrome.extension.getURL('img/default-logo.png');
+                $http.get(URL + 'streams/' + $scope.username)
+                .then(function(response) {
+                    if (response.data.stream != null) {
+                        $scope.background = {
+                            'background': 'url("' + $scope.logo + '") no-repeat right / 20px content-box, url("' + chrome.extension.getURL('img/red-dot.png') + '") no-repeat right 25px center / 8px content-box',
+                            'padding': '5px 5px 5px 12px'
+                        };
+                    }
+                    else {
+                        $scope.background = {
+                            'background': 'url("' + $scope.logo + '") no-repeat right / 20px content-box',
+                            'padding': '5px 5px 5px 12px'
+                        };
+                    }
+                });
             });
 
             var online = new Array();

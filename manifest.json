@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Twitch following | Who is streaming?",
-  "version": "1.3",
+  "version": "1.4",
   "short_name": "Twitch following",
   "description": "Extension that lists all of you favourite streamers you are currently following.",
   "content_security_policy": "script-src 'self' https://api.twitch.tv/kraken/; object-src 'self'",
@@ -17,7 +17,6 @@
       "activeTab",
       "storage",
       "alarms",
-      "background",
-      "https://ajax.googleapis.com/"
+      "background"
       ]
     }

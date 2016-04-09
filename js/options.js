@@ -6,23 +6,16 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
             chrome.tabs.remove(tab.id);
         });
     }
-
     $scope.options = function() {
-        $scope.enable = true;
         $scope.manifest = chrome.runtime.getManifest();
         $('[data-toggle="tooltip"]').tooltip();
 
-        angular.element(".glyphicon-refresh-animate").hide();
+        angular.element('.glyphicon-refresh-animate').hide();
         chrome.storage.sync.get('username', function (result) {
             $scope.username = result.username;
             $http.get(URL + 'users/' + $scope.username)
             .then(function(response) {
-                $scope.user = response.data;
-                $scope.logo = $scope.user.logo ? $scope.user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';
-                $scope.background = {
-                    'background': 'url("' + $scope.logo + '") no-repeat right / 35px content-box',
-                    'padding': '5px 5px 5px 12px'
-                };
+                setLogo(response);
             });
         });
         chrome.storage.sync.get('counter', function (result) {
@@ -47,12 +40,26 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
             angular.element('.glyphicon-refresh-animate').fadeOut('fast');
             $http.get(URL + 'users/' + $scope.username)
             .then(function(response) {
-                $scope.user = response.data;
-                $scope.logo = $scope.user.logo ? $scope.user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';
-                $scope.background = {
-                    'background': 'url("' + $scope.logo + '") no-repeat right / 20px content-box'
-                };
+                setLogo(response);
             });
         }, 1000);
+    }
+    function setLogo (response) {
+        $scope.logo = response.data.logo ? response.data.logo : chrome.extension.getURL('img/default-logo.png');
+        $http.get(URL + 'streams/' + $scope.username)
+        .then(function(response) {
+            if (response.data.stream != null) {
+                $scope.background = {
+                    'background': 'url("' + $scope.logo + '") no-repeat right / 35px content-box, url("' + chrome.extension.getURL('img/red-dot.png') + '") no-repeat right 40px center / 10px content-box',
+                    'padding': '5px 5px 5px 12px'
+                };
+            }
+            else {
+                $scope.background = {
+                    'background': 'url("' + $scope.logo + '") no-repeat right / 35px content-box',
+                    'padding': '5px 5px 5px 12px'
+                };
+            }
+        });
     }
 });

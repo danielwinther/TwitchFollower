@@ -1,5 +1,5 @@
-# Twitch Following
-Google Chrome Extension that tracks your favourite streamers on Twitch.tv. This application was created in AngularJS.
+# Twitch following | Who is streaming?
+Google Chrome Extension that lists all of you favourite streamers you are currently following. This application was developped in AngularJS.
 
 # Installation
-Drag-and-drop the TwitchFollowing.crx into chrome://extensions/ and press add extension. A T-icon should appear in the right hand corner of the browser. Press the icon and type in your Twitch username and a list streamers, that you are following, should appear.
+[Chrome Webshop - Twitch following | Who is streaming?](https://chrome.google.com/webstore/detail/ekipofmilbbbljgpgpfmemfgekkamglp)
