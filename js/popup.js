@@ -2,6 +2,7 @@ var twitch = angular.module('twitch', ['ngAnimate']);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
 twitch.controller('TwitchController', function($scope, $interval, $http, URL){
     $scope.manifest = chrome.runtime.getManifest();
+
     $scope.onChange = function() {
         chrome.storage.sync.set({'username': $scope.username}, function() {
             $scope.getTwitch();
@@ -21,6 +22,16 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL){
                     chrome.storage.sync.set({'limit': 1000});
                 }
             });
+            chrome.storage.sync.get('animation', function (result) {
+                if (result.animation == null) {
+                    chrome.storage.sync.set({'animation': 0.5});
+                }
+                else {
+                    $scope.animation = {
+                        'transition': 'all ease ' + result.animation + 's'
+                    };
+                }
+            });
 
             chrome.runtime.sendMessage({
                 greeting: '0'
@@ -29,6 +40,11 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL){
             $http.get(URL + 'users/' + $scope.username)
             .then(function(response) {
                 $scope.user = response.data;
+                $scope.logo = $scope.user.logo ? $scope.user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';
+                $scope.background = {
+                    'background': 'url("' + $scope.logo + '") no-repeat right / 20px content-box',
+                    'padding': '5px 5px 5px 12px'
+                };
             });
 
             var online = new Array();
@@ -50,12 +66,17 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL){
                             chrome.runtime.sendMessage({
                                 greeting1: online.length.toString()
                             });
+
                             $scope.onlineStreamers = online;
                             $scope.offlineStreamers = offline;
+                            $('[data-toggle="tooltip"]').tooltip();
                         });
                     });
                 });
             });
         });
+    }
+    $scope.options = function() {
+        chrome.runtime.openOptionsPage();    
     }
 });

@@ -1,39 +1,47 @@
 <!DOCTYPE html>
-<html ng-app="twitch" ng-controller="TwitchController">
+<html data-ng-app="twitch" data-ng-controller="TwitchController">
 <head>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css" />
 	<link rel="stylesheet" href="css/styles.css" />
-	<title ng-bind="manifest.name"></title>
+	<title data-ng-bind="manifest.name"></title>
 </head>
 <body>
-	<div ng-init="getTwitch()" class="container">
-		<h3 ng-bind="manifest.name"></h3>
-		<div class="row">
-			<div class="form-group col-xs-12">
-				<input style="background: url({{user.logo ? user.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png';}}) no-repeat right / 20px content-box; padding:5px;" ng-model="username" ng-change="onChange()" ng-model-options="{debounce: 750}" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
+	<main data-ng-init="getTwitch()" class="container">
+		<section class="row form-group col-md-12">
+			<h3 data-ng-bind="manifest.name"></h3>
+			<input data-ng-style="background" data-ng-model="username" data-ng-change="onChange()" data-ng-model-options="{debounce: 750}" type="text" autofocus placeholder="Twitch username (default: twitch)" class="form-control">
+		</section>
+		<hr class="row" />
+		<section class="row col-md-12">
+			<h4 data-ng-bind="'Online (' + (onlineStreamers.length ? onlineStreamers.length : 0) + ')'"></h4>
+			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in onlineStreamers">
+				<p>
+					<img data-ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
+					<a data-ng-href="{{streamer.channel.url}}" title="{{streamer.channel.status + ' | ' + streamer.channel.game}}" data-toggle="tooltip" data-placement="right" target="_blank">
+						<span data-ng-bind="streamer.channel.display_name" class="text-success"></span>
+					</a>
+				</p>
 			</div>
+		</section>
+		<hr class="row" />
+		<section class="row col-md-12">
+			<h4 data-ng-bind="'Offline (' + (offlineStreamers.length ? offlineStreamers.length : 0) + ')'"></h4>
+			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in offlineStreamers">
+				<p>
+					<img data-ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
+					<a data-ng-href="{{streamer.channel.url}}" target="_blank">
+						<span data-ng-bind="streamer.channel.display_name" class="text-danger"></span>
+					</a>
+				</p>
+			</div>
+		</section>
+		<hr class="row" />
+		<div class="row col-md-12">
+			<button data-ng-click="options()" class="btn btn-info btn-sm btn-block">Go to options</button>
 		</div>
-		<h4 ng-bind="'Online (' + (onlineStreamers.length ? onlineStreamers.length : 0) + ')'"></h4>
-		<div class="animate-repeat" ng-repeat="streamer in onlineStreamers">
-			<p>
-				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
-				<a ng-href="{{streamer.channel.url}}" title="{{streamer.channel.status + ' | ' + streamer.channel.game}}" target="_blank">
-					<span ng-bind="streamer.channel.display_name" class="text-success"></span>
-				</a>
-			</p>
-		</div>
-		<hr />
-		<h4 ng-bind="'Offline (' + (offlineStreamers.length ? offlineStreamers.length : 0) + ')'"></h4>
-		<div class="animate-repeat" ng-repeat="streamer in offlineStreamers">
-			<p>
-				<img ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
-				<a ng-href="{{streamer.channel.url}}" target="_blank">
-					<span ng-bind="streamer.channel.display_name" class="text-danger"></span>
-				</a>
-			</p>
-		</div>
-	</div>
+		<hr class="row" />
+	</main>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/angular.min.js"></script>
