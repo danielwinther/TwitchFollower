@@ -3,4 +3,4 @@ Google Chrome Extension that lists all of you favourite streamers you are curren
 
 # Installation
 [Chrome Webshop - Twitch following | Who is streaming?](https://chrome.google.com/webstore/detail/ekipofmilbbbljgpgpfmemfgekkamglp)
-Or download this repository and install manually under [chrome://extensions/](chrome://extensions/).
+Or download this repository and install manually under <code>chrome://extensions/</code>
