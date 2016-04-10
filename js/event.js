@@ -36,7 +36,6 @@ function setAndListenOnAlarm() {
     });
 }
 
-
 function getStreamers() {
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
