@@ -18,7 +18,7 @@
 			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in onlineStreamers">
 				<p>
 					<img data-ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
-					<a data-ng-href="{{streamer.channel.url}}" title="{{streamer.channel.status + ' | ' + streamer.channel.game}}" data-toggle="tooltip" data-placement="right" target="_blank">
+					<a data-ng-href="{{streamer.channel.url}}" title="{{streamer.channel.game + ' | ' + streamer.channel.status}}" data-toggle="tooltip" data-placement="right" target="_blank">
 						<span data-ng-bind="streamer.channel.display_name" class="text-success"></span>
 					</a>
 				</p>

@@ -1,6 +1,7 @@
 var twitch = angular.module('twitch', []);
 twitch.constant('URL', 'https://api.twitch.tv/kraken/');
-twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
+twitch.constant('CLIENTID', 'qh95apsorfl1quetwoekq68t5vgzjbq');
+twitch.controller('OptionsController', function($scope, $timeout, $http, URL, CLIENTID){
     $scope.close = function() {
         chrome.tabs.getCurrent(function(tab) {
             chrome.tabs.remove(tab.id);
@@ -13,7 +14,7 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
         angular.element('.glyphicon-refresh-animate').hide();
         chrome.storage.sync.get('username', function (result) {
             $scope.username = result.username;
-            $http.get(URL + 'users/' + $scope.username)
+            $http.get(URL + 'users/' + $scope.username + '?client_id=' + CLIENTID)
             .then(function(response) {
                 setLogo(response);
             });
@@ -38,7 +39,7 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
 
         cancelRefresh = $timeout(function callback() {
             angular.element('.glyphicon-refresh-animate').fadeOut('fast');
-            $http.get(URL + 'users/' + $scope.username)
+            $http.get(URL + 'users/' + $scope.username + '?client_id=' + CLIENTID)
             .then(function(response) {
                 setLogo(response);
             });
@@ -46,7 +47,7 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL){
     }
     function setLogo (response) {
         $scope.logo = response.data.logo ? response.data.logo : chrome.extension.getURL('img/default-logo.png');
-        $http.get(URL + 'streams/' + $scope.username)
+        $http.get(URL + 'streams/' + $scope.username + '?client_id=' + CLIENTID)
         .then(function(response) {
             if (response.data.stream != null) {
                 $scope.background = {
