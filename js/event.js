@@ -1,4 +1,5 @@
 const URL = 'https://api.twitch.tv/kraken/';
+const CLIENTID = 'qh95apsorfl1quetwoekq68t5vgzjbq';
 
 setStorageVariables();
 getStreamers();
@@ -58,12 +59,12 @@ function getStreamers() {
         chrome.storage.sync.get('limit', function (result1) {
             var online = 0;
             $.ajax({
-                url: URL + 'users/' + (result.username ? result.username : 'twitch')  + '/follows/channels?limit=' + result1.limit,
+                url: URL + 'users/' + (result.username ? result.username : 'twitch')  + '/follows/channels?limit=' + result1.limit + '&client_id=' + CLIENTID,
                 dataType: 'json',
                 success: function(data) {
                     $.each(data.follows, function (key, value) {
                         $.ajax({
-                            url: URL + 'streams/' + value.channel.name,
+                            url: URL + 'streams/' + value.channel.name + '?client_id=' + CLIENTID,
                             dataType: 'json',
                             success: function(response) {
                                 if (response.stream != null) {
