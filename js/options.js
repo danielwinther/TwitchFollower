@@ -38,10 +38,10 @@ twitch.controller('OptionsController', function($scope, $timeout, $http, URL, CL
         angular.element('.glyphicon-refresh-animate').fadeIn('fast');
 
         cancelRefresh = $timeout(function callback() {
-            angular.element('.glyphicon-refresh-animate').fadeOut('fast');
             $http.get(URL + 'users/' + $scope.username + '?client_id=' + CLIENTID)
             .then(function(response) {
                 setLogo(response);
+                angular.element('.glyphicon-refresh-animate').fadeOut('fast');
             });
         }, 1000);
     }

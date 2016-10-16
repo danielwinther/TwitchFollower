@@ -14,10 +14,10 @@
 		</section>
 		<hr class="row" />
 		<section class="row col-md-12">
-			<h4 data-ng-bind="'Online (' + (onlineStreamers.length ? onlineStreamers.length : 0) + ')'"></h4>
-			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in onlineStreamers">
+			<h4 data-ng-bind="'Online (' + (onlineStreamers.length) + ')'"></h4>
+			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in onlineStreamers | orderBy: 'channel.display_name'">
 				<p>
-					<img data-ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
+					<img data-ng-src="{{streamer.channel.logo}}" src="img/default-logo.png" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
 					<a data-ng-href="{{streamer.channel.url}}" title="{{streamer.channel.game + ' | ' + streamer.channel.status}}" data-toggle="tooltip" data-placement="right" target="_blank">
 						<span data-ng-bind="streamer.channel.display_name" class="text-success"></span>
 					</a>
@@ -26,10 +26,10 @@
 		</section>
 		<hr class="row" />
 		<section class="row col-md-12">
-			<h4 data-ng-bind="'Offline (' + (offlineStreamers.length ? offlineStreamers.length : 0) + ')'"></h4>
-			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in offlineStreamers">
+			<h4 data-ng-bind="'Offline (' + (offlineStreamers.length) + ')'"></h4>
+			<div class="animate-repeat" data-ng-style="animation" data-ng-repeat="streamer in offlineStreamers | orderBy: 'channel.display_name'">
 				<p>
-					<img data-ng-src="{{streamer.channel.logo ? streamer.channel.logo : 'https://static-cdn.jtvnw.net/jtv_user_pictures/xarth/404_user_150x150.png'}}" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
+					<img data-ng-src="{{streamer.channel.logo}}" src="img/default-logo.png" alt="{{streamer.channel.display_name}}" class="img-rounded"/>
 					<a data-ng-href="{{streamer.channel.url}}" target="_blank">
 						<span data-ng-bind="streamer.channel.display_name" class="text-danger"></span>
 					</a>
@@ -38,7 +38,7 @@
 		</section>
 		<hr class="row" />
 		<div class="row col-md-12">
-			<button data-ng-click="options()" class="btn btn-info btn-sm btn-block">Go to options</button>
+			<button data-ng-click="options()" class="btn btn-primary btn-sm btn-block">Options</button>
 		</div>
 		<hr class="row" />
 	</main>
