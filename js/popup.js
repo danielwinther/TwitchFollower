@@ -46,7 +46,7 @@ twitch.controller('TwitchController', function($scope, $interval, $http, URL, CL
             var offline = new Array();
             chrome.storage.sync.get('limit', function (result) {
                 $scope.limit = result.limit;
-                $http.get(URL + 'users/' + ($scope.username ? $scope.username : 'twitch') + '/follows/channels?direction=asc&limit=' + $scope.limit + '&sortby=display_name&client_id=' + CLIENTID)
+                $http.get(URL + 'users/' + ($scope.username ? $scope.username : 'twitch') + '/follows/channels?direction=asc&limit=' + $scope.limit + '&client_id=' + CLIENTID)
                 .then(function(response) {
                     $scope.data = response.data.follows
                     angular.forEach($scope.data, function(value, key){

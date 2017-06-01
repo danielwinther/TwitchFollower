@@ -13,7 +13,7 @@ function setStorageVariables() {
     });
     chrome.storage.sync.get('limit', function (result) {
         if (result.limit == null) {
-            chrome.storage.sync.set({'limit': 1000});
+            chrome.storage.sync.set({'limit': 100});
         }
     });
     chrome.storage.sync.get('animation', function (result) {
